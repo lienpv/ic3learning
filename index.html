@@ -21,11 +21,11 @@ h1{margin:6px 0 0;font-size:24px}
   <div class="bar"><i id="pg"></i></div>
   <p id="tx">Đang tải bài ôn luyện, vui lòng đợi giây lát...</p>
 </div>
-<iframe id="app" allow="fullscreen" allowfullscreen title="Luyện tập IC3"></iframe>
+<iframe id="app" allow="fullscreen" allowfullscreen title="Bộ câu hỏi ôn luyện IC3/MOS"></iframe>
 <button id="fs">⛶ Toàn màn hình</button>
 <script>
 // DÁN LINK /exec CỦA WEB HỌC SINH VÀO ĐÂY
-const URL_APP = 'https://script.google.com/macros/s/AKfycbzapPGeK5uo2WmG4aP0Q2L9Q-MjgSuK4QjLrP1wAA51uuWsjKuT0vXtsANDa0JNM4wVhQ/exec';
+const URL_APP = 'https://script.google.com/macros/s/AKfycbwbU4q0UZ4jHIwSiu7Pq5oJ2Weis5ObHWmxncPRIK1ouZsVfCuLlpiM8Fv4QiC4HmfXug/exec';
 
 const f = document.getElementById('app'), pg = document.getElementById('pg'),
       ld = document.getElementById('ld'), tx = document.getElementById('tx'), fs = document.getElementById('fs');
@@ -38,7 +38,7 @@ f.onload = () => {
   setTimeout(() => { ld.classList.add('off'); f.classList.add('on'); }, 350);
   if (document.documentElement.requestFullscreen) fs.style.display = 'block';
 };
-f.src = URL_APP;
+f.src = URL_APP + location.search;   // chuyển tiếp tham số như ?pc=HS37 sang web học sinh
 setTimeout(() => {
   if (!f.classList.contains('on'))
     tx.innerHTML = 'Tải lâu hơn bình thường. <a href="#" onclick="location.reload();return false">Tải lại</a> · <a href="' + URL_APP + '">Mở trực tiếp</a>';

@@ -38,11 +38,6 @@ f.onload = () => {
   setTimeout(() => { ld.classList.add('off'); f.classList.add('on'); }, 350);
   if (document.documentElement.requestFullscreen) fs.style.display = 'block';
 };
-f.src = URL_APP + location.search;   // chuyển tiếp tham số như ?pc=HS37 sang web học sinh
-setTimeout(() => {
-  if (!f.classList.contains('on'))
-    tx.innerHTML = 'Tải lâu hơn bình thường. <a href="#" onclick="location.reload();return false">Tải lại</a> · <a href="' + URL_APP + '">Mở trực tiếp</a>';
-}, 25000);
 
 fs.onclick = () => document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
 document.addEventListener('fullscreenchange', () => { fs.textContent = document.fullscreenElement ? '⛶ Thoát toàn màn hình' : '⛶ Toàn màn hình'; });

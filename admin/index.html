@@ -1,1 +1,49 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IC3 Learning :: Quản trị</title>
+<style>
+html,body{margin:0;height:100%;background:#e6f0fb;font-family:"Segoe UI",system-ui,sans-serif;color:#17233b;overflow:hidden}
+iframe{position:fixed;inset:0;width:100%;height:100%;border:0;opacity:0;transition:opacity .4s}
+iframe.on{opacity:1}
+#ld{position:fixed;inset:0;z-index:2;display:grid;place-content:center;justify-items:center;gap:14px;text-align:center;background:#e6f0fb;transition:opacity .45s;padding:20px}
+#ld.off{opacity:0;pointer-events:none}
+.logo{width:76px;height:76px;border-radius:18px;background:#d9262c;color:#fff;font:800 28px/76px "Segoe UI",sans-serif;box-shadow:0 8px 24px #d9262c44}
+h1{margin:6px 0 0;font-size:24px}
+.bar{width:min(340px,80vw);height:8px;border-radius:99px;background:#c9dcf3;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:#2f6fdb;border-radius:99px;transition:width .35s}
+#tx{margin:0;color:#4a5a78;font-size:15px}#tx a{color:#2f6fdb;font-weight:600}
+#fs{position:fixed;left:50%;bottom:10px;transform:translateX(-50%);z-index:3;border:0;border-radius:99px;padding:7px 16px;background:#0f2347cc;color:#fff;font:600 13px "Segoe UI",sans-serif;cursor:pointer;display:none}
+</style></head><body>
+<div id="ld">
+  <div class="logo">IC3</div>
+  <h1>IC3 Learning :: Quản trị</h1>
+  <div class="bar"><i id="pg"></i></div>
+  <p id="tx">Đang tải trang Quản trị, vui lòng đợi giây lát...</p>
+</div>
+<iframe id="app" allow="fullscreen" allowfullscreen title="Bộ câu hỏi ôn luyện IC3/MOS"></iframe>
+<button id="fs">⛶ Toàn màn hình</button>
+<script>
+// DÁN LINK /exec CỦA WEB GIÁO VIÊN VÀO ĐÂY
+const URL_APP = 'https://script.google.com/macros/s/AKfycbxC5c_Zr-KfeK4PtDRuRvBTM8-7HkjGECz-DiXvCjwAQEPyjitmAyu3fvo7yDMTHagVIg/exec';
 
+const f = document.getElementById('app'), pg = document.getElementById('pg'),
+      ld = document.getElementById('ld'), tx = document.getElementById('tx'), fs = document.getElementById('fs');
+let p = 6;
+// Thanh tiến trình mô phỏng (trình duyệt không cho biết % tải thật của trang Google), chạm 100% khi trang tải xong
+const timer = setInterval(() => { p += (92 - p) * 0.05; pg.style.width = p + '%'; }, 300);
+pg.style.width = p + '%';
+f.onload = () => {
+  clearInterval(timer); pg.style.width = '100%';
+  setTimeout(() => { ld.classList.add('off'); f.classList.add('on'); }, 350);
+  if (document.documentElement.requestFullscreen) fs.style.display = 'block';
+};
+f.src = URL_APP + location.search;   // chuyển tiếp tham số như ?pc=HS37 sang web học sinh
+setTimeout(() => {
+  if (!f.classList.contains('on'))
+    tx.innerHTML = 'Tải lâu hơn bình thường. <a href="#" onclick="location.reload();return false">Tải lại</a> · <a href="' + URL_APP + '">Mở trực tiếp</a>';
+}, 25000);
+
+fs.onclick = () => document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
+document.addEventListener('fullscreenchange', () => { fs.textContent = document.fullscreenElement ? '⛶ Thoát toàn màn hình' : '⛶ Toàn màn hình'; });
+</script></body></html>

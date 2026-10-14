@@ -45,16 +45,16 @@ const f = document.getElementById('app'),
       tx = document.getElementById('tx'),
       fs = document.getElementById('fs');
 
-let p = 15;
+let p = 10;
 pg.style.width = p + '%';
 
-// Thanh bar chạy mượt mà trong 1.5 giây
+// Thanh bar chạy đều đặn trong khoảng 3 giây
 const timer = setInterval(() => {
-  if (p < 95) {
-    p += (95 - p) * 0.2;
+  if (p < 96) {
+    p += (96 - p) * 0.1;
     pg.style.width = p + '%';
   }
-}, 100);
+}, 120);
 
 let loaded = false;
 
@@ -66,7 +66,7 @@ function showApp() {
   setTimeout(() => {
     ld.classList.add('off');
     f.classList.add('on');
-  }, 150);
+  }, 200);
   if (document.documentElement.requestFullscreen) {
     fs.style.display = 'block';
   }
@@ -77,8 +77,8 @@ f.onload = showApp;
 // Chuyển tiếp tham số URL (ví dụ ?pc=HS37)
 f.src = URL_APP + location.search;
 
-// TỰ ĐỘNG BẬT TRANG SAU 1.5 GIÂY (1500ms)
-setTimeout(showApp, 1500);
+// TỰ ĐỘNG BẬT TRANG SAU 3 GIÂY (3000ms) - Đảm bảo bên trong đã load kịp giao diện đăng nhập
+setTimeout(showApp, 3000);
 
 // Fallback phụ phòng hờ mạng nghẽn thực sự lâu (sau 15 giây mới hiện dòng cảnh báo tải lại)
 setTimeout(() => {

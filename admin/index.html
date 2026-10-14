@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>IC3 Learning :: Quản trị</title>
 
-<!-- Tối ưu kết nối mạng tới Google Apps Script để giảm thời gian chờ -->
 <link rel="preconnect" href="https://script.google.com">
 <link rel="preconnect" href="https://script.googleusercontent.com">
 <link rel="dns-prefetch" href="https://script.google.com">
@@ -48,10 +47,10 @@ pg.style.width = p + '%';
 
 const timer = setInterval(() => { 
   if (p < 92) {
-    p += (92 - p) * 0.08; 
+    p += (92 - p) * 0.15; // Tăng tốc độ chạy thanh bar lên một chút cho khớp thời gian ngắn
     pg.style.width = p + '%'; 
   }
-}, 200);
+}, 150);
 
 let loaded = false;
 
@@ -63,20 +62,17 @@ function showApp() {
   setTimeout(() => {
     ld.classList.add('off');
     f.classList.add('on');
-  }, 300);
+  }, 200);
   if (document.documentElement.requestFullscreen) {
     fs.style.display = 'block';
   }
 }
 
-// Bắt sự kiện onload (nếu trình duyệt hỗ trợ)
 f.onload = showApp;
-
-// Gán URL để chạy
 f.src = URL_APP;
 
-// TỰ ĐỘNG BẬT TRANG SAU 3.5 GIÂY (Chống đứng hình do trình duyệt chặn sự kiện onload)
-setTimeout(showApp, 3500);
+// TỰ ĐỘNG BẬT TRANG SAU 1.5 GIÂY
+setTimeout(showApp, 1500);
 
 fs.onclick = () => document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
 document.addEventListener('fullscreenchange', () => { 

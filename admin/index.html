@@ -36,7 +36,6 @@ h1{margin:6px 0 0;font-size:24px}
 <button id="fs">⛶ Toàn màn hình</button>
 
 <script>
-// DÁN LINK /exec CỦA TRANG GIÁO VIÊN VÀO ĐÂY
 const URL_APP = 'https://script.google.com/macros/s/AKfycbw_6n9O48B0t3ZbeYKlfbbBgmjK5bG1AkR54QzGlakuzplPy_K5J-yTtwIG5n_p-wMKZg/exec';
 
 const f = document.getElementById('app'), 
@@ -47,7 +46,6 @@ const f = document.getElementById('app'),
 let p = 6;
 pg.style.width = p + '%';
 
-// Thanh tiến trình mô phỏng mượt hơn
 const timer = setInterval(() => { 
   if (p < 92) {
     p += (92 - p) * 0.08; 
@@ -55,20 +53,30 @@ const timer = setInterval(() => {
   }
 }, 200);
 
-// GÁN ĐƯỜNG DẪN VÀO IFRAME ĐỂ BẮT ĐẦU TẢI
-f.src = URL_APP;
+let loaded = false;
 
-f.onload = () => {
-  clearInterval(timer); 
+function showApp() {
+  if (loaded) return;
+  loaded = true;
+  clearInterval(timer);
   pg.style.width = '100%';
-  setTimeout(() => { 
-    ld.classList.add('off'); 
-    f.classList.add('on'); 
+  setTimeout(() => {
+    ld.classList.add('off');
+    f.classList.add('on');
   }, 300);
   if (document.documentElement.requestFullscreen) {
     fs.style.display = 'block';
   }
-};
+}
+
+// Bắt sự kiện onload (nếu trình duyệt hỗ trợ)
+f.onload = showApp;
+
+// Gán URL để chạy
+f.src = URL_APP;
+
+// TỰ ĐỘNG BẬT TRANG SAU 3.5 GIÂY (Chống đứng hình do trình duyệt chặn sự kiện onload)
+setTimeout(showApp, 3500);
 
 fs.onclick = () => document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
 document.addEventListener('fullscreenchange', () => { 

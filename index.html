@@ -39,20 +39,20 @@ h1{margin:6px 0 0;font-size:24px}
 // DÁN LINK /exec CỦA WEB HỌC SINH VÀO ĐÂY
 const URL_APP = 'https://script.google.com/macros/s/AKfycbzEWjUygYX0zyEDlL5v-OC1XkMiZFPHXjw1xFGyqc18S0xHZGX_l05ZQLorWxAWacQwMQ/exec';
 
-const f = document.getElementById('app'), 
+const f = document.getElementById('app'),
       pg = document.getElementById('pg'),
-      ld = document.getElementById('ld'), 
-      tx = document.getElementById('tx'), 
+      ld = document.getElementById('ld'),
+      tx = document.getElementById('tx'),
       fs = document.getElementById('fs');
 
-let p = 15; 
+let p = 15;
 pg.style.width = p + '%';
 
 // Thanh bar chạy mượt mà trong 1.5 giây
-const timer = setInterval(() => { 
+const timer = setInterval(() => {
   if (p < 95) {
-    p += (95 - p) * 0.2; 
-    pg.style.width = p + '%'; 
+    p += (95 - p) * 0.2;
+    pg.style.width = p + '%';
   }
 }, 100);
 
@@ -88,8 +88,8 @@ setTimeout(() => {
 }, 15000);
 
 fs.onclick = () => document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
-document.addEventListener('fullscreenchange', () => { 
-  fs.textContent = document.fullscreenElement ? '⛶ Thoát toàn màn hình' : '⛶ Toàn màn hình'; 
+document.addEventListener('fullscreenchange', () => {
+  fs.textContent = document.fullscreenElement ? '⛶ Thoát toàn màn hình' : '⛶ Toàn màn hình';
 });
 </script>
 </body>

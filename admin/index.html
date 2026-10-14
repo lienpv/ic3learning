@@ -11,14 +11,14 @@
 
 <style>
 html,body{margin:0;height:100%;background:#e6f0fb;font-family:"Segoe UI",system-ui,sans-serif;color:#17233b;overflow:hidden}
-iframe{position:fixed;inset:0;width:100%;height:100%;border:0;opacity:0;transition:opacity .4s}
+iframe{position:fixed;inset:0;width:100%;height:100%;border:0;opacity:0;transition:opacity .3s}
 iframe.on{opacity:1}
-#ld{position:fixed;inset:0;z-index:2;display:grid;place-content:center;justify-items:center;gap:14px;text-align:center;background:#e6f0fb;transition:opacity .45s;padding:20px}
+#ld{position:fixed;inset:0;z-index:2;display:grid;place-content:center;justify-items:center;gap:14px;text-align:center;background:#e6f0fb;transition:opacity .3s;padding:20px}
 #ld.off{opacity:0;pointer-events:none}
 .logo{width:76px;height:76px;border-radius:18px;background:#d9262c;color:#fff;font:800 28px/76px "Segoe UI",sans-serif;box-shadow:0 8px 24px #d9262c44}
 h1{margin:6px 0 0;font-size:24px}
 .bar{width:min(340px,80vw);height:8px;border-radius:99px;background:#c9dcf3;overflow:hidden}
-.bar i{display:block;height:100%;width:0;background:#2f6fdb;border-radius:99px;transition:width .35s}
+.bar i{display:block;height:100%;width:0;background:#2f6fdb;border-radius:99px;transition:width .2s}
 #tx{margin:0;color:#4a5a78;font-size:15px}
 #fs{position:fixed;left:50%;bottom:10px;transform:translateX(-50%);z-index:3;border:0;border-radius:99px;padding:7px 16px;background:#0f2347cc;color:#fff;font:600 13px "Segoe UI",sans-serif;cursor:pointer;display:none}
 </style>
@@ -42,15 +42,16 @@ const f = document.getElementById('app'),
       ld = document.getElementById('ld'), 
       fs = document.getElementById('fs');
 
-let p = 6;
+let p = 15; // Bắt đầu ở mức 15% cho nhanh
 pg.style.width = p + '%';
 
+// Thanh bar chạy cực nhanh (mỗi 80ms)
 const timer = setInterval(() => { 
-  if (p < 92) {
-    p += (92 - p) * 0.15; // Tăng tốc độ chạy thanh bar lên một chút cho khớp thời gian ngắn
+  if (p < 95) {
+    p += (95 - p) * 0.4; 
     pg.style.width = p + '%'; 
   }
-}, 150);
+}, 80);
 
 let loaded = false;
 
@@ -62,7 +63,7 @@ function showApp() {
   setTimeout(() => {
     ld.classList.add('off');
     f.classList.add('on');
-  }, 200);
+  }, 150); // Hiệu ứng ẩn màn hình chờ nhanh hơn
   if (document.documentElement.requestFullscreen) {
     fs.style.display = 'block';
   }
@@ -71,8 +72,8 @@ function showApp() {
 f.onload = showApp;
 f.src = URL_APP;
 
-// TỰ ĐỘNG BẬT TRANG SAU 1.5 GIÂY
-setTimeout(showApp, 1500);
+// TỰ ĐỘNG BẬT TRANG SAU 900ms (0.9 giây) - SIÊU TỐC
+setTimeout(showApp, 900);
 
 fs.onclick = () => document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
 document.addEventListener('fullscreenchange', () => { 
